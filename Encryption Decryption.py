@@ -13,7 +13,7 @@ def passcode_creator():
     :return: a password of a random length between 10 to 20
     """
     choices = string.ascii_letters + string.digits
-    password = [random.choice(choices) for i in range(random.randint(10,20))]
+    password = [random.choice(choices) for i in range(random.randint(10, 20))]
     return password
 
 
@@ -107,7 +107,7 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
     # creates the caeser_key (shift key) for encoding the plaintext
     caeser_key = make_caeser_key(passcode)
 
-    #reads and loads the plaintext file
+    # reads and loads the plaintext file
     fi = open(input_file_name, "r+")
     plaintext = fi.read()
     fi.close()
@@ -119,7 +119,7 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
         position = key_list.index(i)
         encoded_message += key_list[(position + caeser_key) % len(key_list)]
 
-    #writes the encoded file to the output file
+    # writes the encoded file to the output file
     fo = open(encoded_output_file_name, "w+")
     fo.write(encoded_message)
     print("Message encoded and stored in {}".format(encoded_output_file_name))
@@ -165,14 +165,14 @@ def main():
 
     choice = input("Enter choice: ")
 
-    if choice == 1:
+    if choice == "1":
         input_file_name = input("Enter Input File Name containing message to be encoded: ")
         passcode = passcode_creator()
         print("Your passcode is: {}".format(''.join(passcode)))
         encoded_output_file_name = input("Enter File Name to store the encoded output: ")
         encoding(input_file_name, passcode, encoded_output_file_name)
 
-    elif choice == 2:
+    elif choice == "2":
         encoded_input_file_name = input("Enter Input File Name containing encoded message: ")
         passcode = list(input("Enter passcode to decode: "))
         decoded_output_file_name = input("Enter File Name to store the decoded output: ")
@@ -181,6 +181,8 @@ def main():
     else:
         print("Exiting From Program")
         exit(0)
+
+    return
 
 
 main()
