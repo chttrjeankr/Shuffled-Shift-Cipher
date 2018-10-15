@@ -1,7 +1,5 @@
-import string
-import math
 import random
-import itertools
+import string
 
 
 def passcode_creator():
@@ -61,6 +59,12 @@ def step_creator(passcode):
 
 
 def make_key_list(passcode):
+    """
+    Shuffles a key_list in an organized algorithm to avoid break in via brute force guessing of caeser shift key
+
+    :param passcode: passcode in list format
+    :return: a shuffled key list based on the particular passcode
+    """
     key_list = []
     steps = step_creator(passcode)
     key_list_options = list(string.printable)
@@ -70,11 +74,20 @@ def make_key_list(passcode):
     return key_list
 
 
+def neg_pos(iterlist):
+    for i in range(len(iterlist)):
+        iterlist[i] = iterlist[i] if i % 2 == 0 else -iterlist[i]
+    return iterlist
+
+
 def make_caeser_key(passcode):
-    pass
-    num = 0
-    # return a number that will be the shift key
-    return num
+    """
+
+    :param passcode: gets the passcode
+    :return: a number which'll serve as a shift key to the caeser cipher algorithm
+    """
+    num = sum(neg_pos(list(map(ord, passcode))))
+    return num if num > 0 else len(passcode)
 
 
 def encoding(input_file_name, passcode, encoded_output_file_name):
@@ -87,26 +100,42 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
     :param passcode: the passcode generated from the 'passcode_creator()'
     :param encoded_output_file_name: the file name to store the encoded output
     """
+
+    # creates a shuffled key_list to implement caeser cipher shift
     key_list = make_key_list(passcode)
+
+    # creates the caeser_key (shift key) for encoding the plaintext
     caeser_key = make_caeser_key(passcode)
 
+    #reads and loads the plaintext file
     fi = open(input_file_name, "r+")
-    input_message = fi.read()
+    plaintext = fi.read()
     fi.close()
 
     encoded_message = ""
 
-    for i in input_message:
+    # encoding shift like caeser cipher algorithm
+    for i in plaintext:
         position = key_list.index(i)
         encoded_message += key_list[(position + caeser_key) % len(key_list)]
 
+    #writes the encoded file to the output file
     fo = open(encoded_output_file_name, "w+")
     fo.write(encoded_message)
     print("Message encoded and stored in {}".format(encoded_output_file_name))
     fo.close()
 
+    return
+
 
 def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
+    """
+
+    :param encoded_input_file_name:
+    :param passcode:
+    :param decoded_output_file_name:
+    :return:
+    """
     key_list = make_key_list(passcode)
     caeser_key = make_caeser_key(passcode)
 
@@ -124,6 +153,8 @@ def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
     fo.write(decoded_message)
     print("Message decoded and stored in {}".format(decoded_output_file_name))
     fo.close()
+
+    return
 
 
 def main():
