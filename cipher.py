@@ -1,6 +1,8 @@
 import random
 import string
 
+from helper_funcs import *
+
 
 def passcode_creator():
     """
@@ -15,34 +17,6 @@ def passcode_creator():
     choices = string.ascii_letters + string.digits
     password = [random.choice(choices) for i in range(random.randint(10, 20))]
     return password
-
-
-def sum_of_digits(num):
-    """
-    Calculates the sum of all digits in 'num'
-
-    :param num: a positive number
-    :return: an integer which stores the sum of digits
-    """
-    sum_ = 0
-    while num > 0:
-        sum_ += num % 10
-        num //= 10
-    return sum_
-
-
-def make_one_digit(digit):
-    """
-    Implements an algorithm to return a single digit integer
-    Doesn't keep the value of input 'digit' intact
-
-    :param digit: takes in a positive number
-    :return: the number itself; if its single digit
-                else, converts to single digit and returns
-    """
-    while digit > 10:
-        digit = sum_of_digits(digit)
-    return digit
 
 
 def step_creator(passcode):
@@ -74,17 +48,13 @@ def make_key_list(passcode):
     return key_list
 
 
-def neg_pos(iterlist):
-    for i in range(len(iterlist)):
-        iterlist[i] = iterlist[i] if i % 2 == 0 else -iterlist[i]
-    return iterlist
-
-
 def make_caeser_key(passcode):
     """
+    Gets the passcode, processes it and returns a caeser key to implement shift
 
     :param passcode: gets the passcode
-    :return: a number which'll serve as a shift key to the caeser cipher algorithm
+    :return: a positive number which'll serve as a shift key to the caeser cipher algorithm
+             returns the length of the passcode if the num to be returned is less than or equal to zero
     """
     num = sum(neg_pos(list(map(ord, passcode))))
     return num if num > 0 else len(passcode)
@@ -108,9 +78,13 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
     caeser_key = make_caeser_key(passcode)
 
     # reads and loads the plaintext file
-    fi = open(input_file_name, "r+")
-    plaintext = fi.read()
-    fi.close()
+    try:
+        fi = open(input_file_name, "r+")
+        plaintext = fi.read()
+        fi.close()
+    except FileNotFoundError:
+        print("File Not Found")
+        return 1
 
     encoded_message = ""
 
@@ -125,23 +99,29 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
     print("Message encoded and stored in {}".format(encoded_output_file_name))
     fo.close()
 
-    return
+    return 0
 
 
 def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
     """
+    Does the decoding of the message after reading from encoded_input_file_name
+    and writes the decoded_message to decoded_output_file_name
 
-    :param encoded_input_file_name:
-    :param passcode:
-    :param decoded_output_file_name:
-    :return:
+    :param encoded_input_file_name: the file name from where to fetch the encoded message
+                                    file must be present in the same directory as of the program
+    :param passcode: the passcode generated from the 'passcode_creator()'
+    :param decoded_output_file_name: the file name to store the decoded output
     """
     key_list = make_key_list(passcode)
     caeser_key = make_caeser_key(passcode)
 
-    fi = open(encoded_input_file_name, "r+")
-    encoded_message = fi.read()
-    fi.close()
+    try:
+        fi = open(encoded_input_file_name, "r+")
+        encoded_message = fi.read()
+        fi.close()
+    except FileNotFoundError:
+        print("File Not Found")
+        return 1
 
     decoded_message = ""
 
@@ -154,4 +134,4 @@ def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
     print("Message decoded and stored in {}".format(decoded_output_file_name))
     fo.close()
 
-    return
+    return 0
