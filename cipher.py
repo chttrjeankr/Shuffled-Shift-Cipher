@@ -39,13 +39,14 @@ def make_key_list(passcode):
     :param passcode: passcode in list format
     :return: a shuffled key list based on the particular passcode
     """
-    key_list = []
-    steps = step_creator(passcode)
-    key_list_options = list(string.printable)
-    # key_list = key_list_options
-    # key_list will be made by using itertools on key_list_options
-    pass
-    return key_list
+    return string.printable
+    # key_list = []
+    # steps = step_creator(passcode)
+    # key_list_options = list(string.printable)
+    # # key_list = key_list_options
+    # # key_list will be made by using itertools on key_list_options
+    # pass
+    # return key_list
 
 
 def make_caeser_key(passcode):
