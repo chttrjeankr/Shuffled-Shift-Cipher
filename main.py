@@ -19,6 +19,12 @@ def main():
             input_file_name = input("Enter Input File Name containing message to be encoded: ")
             passcode = passcode_creator()
             print("Your passcode is: {}".format(''.join(passcode)))
+
+            fo = open("latest_passcode.txt", "w+")
+            fo.write(''.join(passcode))
+            print("Passcode stored in {}".format("latest_passcode.txt"))
+            fo.close()
+
             encoded_output_file_name = input("Enter File Name to store the encoded output: ")
             if (encoding(input_file_name, passcode, encoded_output_file_name) == 0):
                 print("Encoding Successful")
@@ -30,7 +36,14 @@ def main():
 
         elif choice == "2":
             encoded_input_file_name = input("Enter Input File Name containing encoded message: ")
-            passcode = list(input("Enter passcode to decode: "))
+            load = input(
+                "Want to load passcode from \"latest_passcode.txt\" file?\n Press Y for YES or any other key for NO")
+            if load == 'y' or load == 'Y':
+                fi = open("latest_passcode.txt", "r+")
+                passcode = list(fi.read())
+                fi.close()
+            else:
+                passcode = list(input("Enter passcode to decode: "))
             decoded_output_file_name = input("Enter File Name to store the decoded output: ")
             if (decoding(encoded_input_file_name, passcode, decoded_output_file_name) == 0):
                 print("Decoding Successful")
