@@ -2,7 +2,7 @@ def sum_of_digits(num):
     """
     Calculates the sum of all digits in 'num'
 
-    :param num: a positive number
+    :param num: a positive natural number
     :return: an integer which stores the sum of digits
     """
     sum_ = sum(map(int, str(num)))
