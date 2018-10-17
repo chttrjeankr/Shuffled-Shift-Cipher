@@ -19,19 +19,6 @@ def passcode_creator():
     return password
 
 
-# def step_creator(passcode):
-#     """
-#
-#     :param passcode: takes a string
-#     :return:
-#     """
-#     steps = 0
-#     for i in passcode:
-#         steps += ord(i)
-#     steps = make_one_digit(steps)
-#     return len(passcode) if steps == 1 else steps
-
-
 def make_key_list(passcode):
     """
     Shuffles a key_list in an organized algorithm to avoid break in via brute force guessing of caeser shift key
@@ -39,14 +26,22 @@ def make_key_list(passcode):
     :param passcode: passcode in list format
     :return: a shuffled key list based on the particular passcode
     """
-    return string.printable
-    # key_list = []
-    # steps = step_creator(passcode)
-    # key_list_options = list(string.printable)
-    # # key_list = key_list_options
-    # # key_list will be made by using itertools on key_list_options
-    # pass
-    # return key_list
+
+    # return string.printable #(works with zero shuffling)
+
+    key_list = []
+    key_list_options = list(string.printable)
+
+    breakpoints = sorted(set(passcode))
+    temp_list = []
+
+    for i in key_list_options:
+        temp_list.extend(i)
+        if i in breakpoints or i == key_list_options[-1]:
+            key_list.extend(temp_list[::-1])
+            temp_list = []
+
+    return key_list
 
 
 def make_caeser_key(passcode):
