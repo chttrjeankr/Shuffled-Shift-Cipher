@@ -27,21 +27,21 @@ def make_key_list(passcode):
     :return: a shuffled key list based on the particular passcode
     """
 
-    # return string.printable #(works with zero shuffling)
+    return string.printable  # (works with zero shuffling)
 
-    key_list = []
-    key_list_options = list(string.printable)
-
-    breakpoints = sorted(set(passcode))
-    temp_list = []
-
-    for i in key_list_options:
-        temp_list.extend(i)
-        if i in breakpoints or i == key_list_options[-1]:
-            key_list.extend(temp_list[::-1])
-            temp_list = []
-
-    return key_list
+    # key_list = []
+    # key_list_options = list(string.printable)
+    #
+    # breakpoints = sorted(set(passcode))
+    # temp_list = []
+    #
+    # for i in key_list_options:
+    #     temp_list.extend(i)
+    #     if i in breakpoints or i == key_list_options[-1]:
+    #         key_list.extend(temp_list[::-1])
+    #         temp_list = []
+    #
+    # return key_list
 
 
 def make_caeser_key(passcode):

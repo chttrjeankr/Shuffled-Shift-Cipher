@@ -1,6 +1,3 @@
-Gello World
+Hello Vorld
     I am Ankur Chattopadhyay
-    A sophomore from GCETTB West Bengal
-
-        Just trying new things here... [{(3.14159265..)}] is PI
-        ()()()() {}{}{}{} [][][][] " " ' ' !@#$%^&*~  /*-+
+    A sophomore from GCETTB Vest Bengal
