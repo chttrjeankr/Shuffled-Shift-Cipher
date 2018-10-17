@@ -1,5 +1,5 @@
 # [IN_PROGRESS]
-### _PROJECT OF MODIFIED CAESER CIPHER_
+### _PROJECT OF SHUFFLED SHIFT CIPHER_
 
 #### Short Description:
 > The project is a way of encrypting data at rest.
