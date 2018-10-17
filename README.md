@@ -9,7 +9,7 @@
 >Moreover, the disadvantage of using Caeser Ciphers is also eradicated by using a passcode dependent shuffling mechanism which will prevent brute force approach of guessing the shift key, which even if guessed remains useless without knowing the exact shuffled Caeser encryption keys, which in turn is dependent fully on the passcode.
 
 ## #TODO:
-- [x] working for hellotext.txt with zero shuffle
+- [x] working for hellotext.txt with zero shuffle :+1:
 - [ ] implementing caeser key shuffle to prevent brute force break in
 
 **DISCLAIMER**
