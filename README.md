@@ -13,5 +13,6 @@
 - [ ] implementing caeser key shuffle to prevent brute force break in
 
 **DISCLAIMER**
-> The existence of Heisenbugs may or may not be uncertain
-> But one may infer for sure, that there's some unfinished code
+> The existence of Heisenbugs may or may not be uncertain.
+>
+> But one may infer for sure, that there's some unfinished code.
