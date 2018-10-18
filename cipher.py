@@ -23,25 +23,33 @@ def make_key_list(passcode):
     """
     Shuffles a key_list in an organized algorithm to avoid break in via brute force guessing of caeser shift key
 
+    Creates a set of all the characters in the passcode and breaks the key_options at each such character
+    And then individually reverses each sub part and creates a new key_list
+
     :param passcode: passcode in list format
     :return: a shuffled key list based on the particular passcode
     """
 
-    return string.ascii_letters + string.digits + string.punctuation + " \t\n"  # (works with zero shuffling)
+    # key_list_options contain nearly all printable except few elements from string.whitespace
+    key_list_options = string.ascii_letters + string.digits + string.punctuation + " \t\n"
 
-    # key_list = []
-    # key_list_options = list(string.printable)
-    #
-    # breakpoints = sorted(set(passcode))
-    # temp_list = []
-    #
-    # for i in key_list_options:
-    #     temp_list.extend(i)
-    #     if i in breakpoints or i == key_list_options[-1]:
-    #         key_list.extend(temp_list[::-1])
-    #         temp_list = []
-    #
-    # return key_list
+    key_list = []
+
+    # creates points known as breakpoints to break the key_list_options at those points and pivot each substring
+    breakpoints = sorted(set(passcode))
+    temp_list = []
+
+    # algorithm for creating a new shuffled list, key_list, out of key_list_options
+    for i in key_list_options:
+        temp_list.extend(i)
+
+        # checking breakpoints at which to pivot temporary sublist and add it into key_list
+        if i in breakpoints or i == key_list_options[-1]:
+            key_list.extend(temp_list[::-1])
+            temp_list = []
+
+    # returning a shuffled key_list to prevent brute force guessing of shift key
+    return key_list
 
 
 def make_caeser_key(passcode):
@@ -66,6 +74,7 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
                             file must be present in the same directory as of the program
     :param passcode: the passcode generated from the 'passcode_creator()'
     :param encoded_output_file_name: the file name to store the encoded output
+    :return: 0 if encoding is successful, 1 otherwise
     """
 
     # creates a shuffled key_list to implement caeser cipher shift
@@ -74,18 +83,23 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
     # creates the caeser_key (shift key) for encoding the plaintext
     caeser_key = make_caeser_key(passcode)
 
-    # reads and loads the plaintext file
+    # reads and loads the plaintext file and handles the error cases
     try:
         fi = open(input_file_name, "r+")
         plaintext = fi.read()
         fi.close()
     except FileNotFoundError:
-        print("File Not Found")
+        print()
+        print("ERROR ::: File Not Found")
+        return 1
+    except:
+        print()
+        print("ERROR in reading file")
         return 1
 
     encoded_message = ""
 
-    # encoding shift like caeser cipher algorithm
+    # encoding shift like caeser cipher algorithm implementing positive shift or forward shift or right shift
     for i in plaintext:
         position = key_list.index(i)
         encoded_message += key_list[(position + caeser_key) % len(key_list)]
@@ -96,6 +110,7 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
     print("Message encoded and stored in {}".format(encoded_output_file_name))
     fo.close()
 
+    # if encoding() works as it should, it returns 0
     return 0
 
 
@@ -108,27 +123,41 @@ def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
                                     file must be present in the same directory as of the program
     :param passcode: the passcode generated from the 'passcode_creator()'
     :param decoded_output_file_name: the file name to store the decoded output
+    :return: 0 if decoding is successful, 1 otherwise
     """
+
+    # creates the shuffled key_list to implement caeser cipher shift
     key_list = make_key_list(passcode)
+
+    # creates the caeser_key (shift key) for decoding the ciphertext
     caeser_key = make_caeser_key(passcode)
 
+    # reads and loads the ciphertext file and handles the error cases
     try:
         fi = open(encoded_input_file_name, "r+")
         encoded_message = fi.read()
         fi.close()
     except FileNotFoundError:
-        print("File Not Found")
+        print()
+        print("ERROR ::: File Not Found")
+        return 1
+    except:
+        print()
+        print("ERROR in reading file")
         return 1
 
     decoded_message = ""
 
+    # decoding shift like caeser cipher algorithm implementing negative shift or reverse shift or left shift
     for i in encoded_message:
         position = key_list.index(i)
         decoded_message += key_list[(position - caeser_key) % -len(key_list)]
 
+    # writes the decoded file to the output file
     fo = open(decoded_output_file_name, "w+")
     fo.write(decoded_message)
     print("Message decoded and stored in {}".format(decoded_output_file_name))
     fo.close()
 
+    # if decoding() works as it should, it returns 0
     return 0
