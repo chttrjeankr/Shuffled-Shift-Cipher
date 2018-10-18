@@ -27,7 +27,7 @@ def make_key_list(passcode):
     :return: a shuffled key list based on the particular passcode
     """
 
-    return string.printable  # (works with zero shuffling)
+    return string.ascii_letters + string.digits + string.punctuation + " \t\n"  # (works with zero shuffling)
 
     # key_list = []
     # key_list_options = list(string.printable)
@@ -53,6 +53,7 @@ def make_caeser_key(passcode):
              returns the length of the passcode if the num to be returned is less than or equal to zero
     """
     num = sum(neg_pos(list(map(ord, passcode))))
+    print(num)
     return num if num > 0 else len(passcode)
 
 
