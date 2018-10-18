@@ -1,3 +1,4 @@
+import os
 import random
 import string
 
@@ -61,7 +62,6 @@ def make_caeser_key(passcode):
              returns the length of the passcode if the num to be returned is less than or equal to zero
     """
     num = sum(neg_pos(list(map(ord, passcode))))
-    print(num)
     return num if num > 0 else len(passcode)
 
 
@@ -85,6 +85,8 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
 
     # reads and loads the plaintext file and handles the error cases
     try:
+        cwd = os.getcwd()
+        input_file_name = os.path.join(cwd, "test_text_files", input_file_name)
         fi = open(input_file_name, "r+")
         plaintext = fi.read()
         fi.close()
@@ -105,6 +107,8 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
         encoded_message += key_list[(position + caeser_key) % len(key_list)]
 
     # writes the encoded file to the output file
+    cwd = os.getcwd()
+    encoded_output_file_name = os.path.join(cwd, "test_text_files", encoded_output_file_name)
     fo = open(encoded_output_file_name, "w+")
     fo.write(encoded_message)
     print("Message encoded and stored in {}".format(encoded_output_file_name))
@@ -134,6 +138,8 @@ def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
 
     # reads and loads the ciphertext file and handles the error cases
     try:
+        cwd = os.getcwd()
+        encoded_input_file_name = os.path.join(cwd, "test_text_files", encoded_input_file_name)
         fi = open(encoded_input_file_name, "r+")
         encoded_message = fi.read()
         fi.close()
@@ -154,6 +160,8 @@ def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
         decoded_message += key_list[(position - caeser_key) % -len(key_list)]
 
     # writes the decoded file to the output file
+    cwd = os.getcwd()
+    decoded_output_file_name = os.path.join(cwd, "test_text_files", decoded_output_file_name)
     fo = open(decoded_output_file_name, "w+")
     fo.write(decoded_message)
     print("Message decoded and stored in {}".format(decoded_output_file_name))

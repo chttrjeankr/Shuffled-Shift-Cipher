@@ -1,6 +1,5 @@
 from cipher import *
 
-
 def main():
     """
     THE MAIN FUNCTION
@@ -26,15 +25,21 @@ def main():
             print("_____________________________________________________")
             print("Your passcode is: {}".format(''.join(passcode)))
 
-            latest_passcode_file = "latest_passcode.txt"  # hardcoded the the moment
+            cwd = os.getcwd()
+            latest_passcode_file = os.path.join(cwd, "test_text_files", "latest_passcode.txt")
 
-            fo = open(latest_passcode_file, "w+")
-            fo.write(''.join(passcode))  # stores the passcode to a separate latest_passcode_file for reuse
+            try:
+                fo = open(latest_passcode_file, "w+")
+                fo.write(''.join(passcode))  # stores the passcode to a separate latest_passcode_file for reuse
 
-            print("Passcode successfully stored in {}".format(latest_passcode_file))
-            print("_____________________________________________________")
+                print("Passcode successfully stored in {}".format(latest_passcode_file))
+                print("_____________________________________________________")
 
-            fo.close()
+                fo.close()
+            except:
+                print("FILE ERROR ::: (make sure test_text_files contain latest_passcode.txt)")
+                choice = 0
+                continue
 
             print()
 
@@ -53,17 +58,33 @@ def main():
         elif choice == "2":
             encoded_input_file_name = input("Enter Input File Name containing encoded message: ")
 
-            latest_passcode_file = "latest_passcode.txt"  # hardcoded the the moment
+            cwd = os.getcwd()
+            latest_passcode_file = os.path.join(cwd, "test_text_files", "latest_passcode.txt")
+
+            print("________________________________________________________")
 
             print("Want to load passcode from {} file?".format(latest_passcode_file))
+            print()
             load = input("Press Y for YES or any other key for NO: ")
 
+            print("________________________________________________________")
+
             if load == 'y' or load == 'Y':
-                fi = open("latest_passcode.txt", "r+")
-                passcode = list(fi.read())  # loads the latest passcode used as stored in file by encoding()
-                fi.close()
+                cwd = os.getcwd()
+                latest_passcode_file = os.path.join(cwd, "test_text_files", "latest_passcode.txt")
+                try:
+                    fi = open(latest_passcode_file, "r+")
+                    passcode = list(fi.read())  # loads the latest passcode used as stored in file by encoding()
+                    print("Password loaded successfully")
+                    fi.close()
+                except:
+                    print("FILE ERROR ::: (make sure test_text_files contain latest_passcode.txt)")
+                    choice = 0
+                    continue
             else:
                 passcode = list(input("Enter passcode to decode: "))  # lets the user enter the passcode
+
+            print()
 
             decoded_output_file_name = input("Enter File Name to store the decoded output: ")
 
@@ -77,7 +98,9 @@ def main():
                 continue
 
         else:
-            print("Exiting From Program")
+            print()
+            print("EXITING FROM PROGRAM")
+            print("author: Ankur Chattopadhay, GCETTB CSE")
             exit(0)
 
 
