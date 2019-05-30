@@ -1,5 +1,4 @@
-# [NEAR COMPLETION ::: INTEGRATION TESTING PHASE]
-### _PROJECT OF SHUFFLED SHIFT CIPHER_
+# Self Made Cryptography Algorithm
 
 #### Short Description:
 > The project is a way of encrypting data at rest.
@@ -13,4 +12,4 @@
 - [x] implementing caeser key shuffle to prevent brute force break in
 
 **DISCLAIMER**
-> The existence of Heisenbugs is uncertain.
+> The existence of Heisenbugs is uncertain, but not at all obvious.
