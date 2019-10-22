@@ -30,6 +30,6 @@ def neg_pos(iterlist):
     :param iterlist: takes a list iterable
     :return: the mutated list
     """
-    for i in range(len(iterlist)):
-        iterlist[i] = iterlist[i] if i % 2 == 0 else -iterlist[i]
+    for i in range(1,len(iterlist),2):
+        iterlist[i] *= -1
     return iterlist
