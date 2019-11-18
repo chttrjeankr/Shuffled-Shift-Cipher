@@ -12,4 +12,4 @@
 ## #TODO:
 - [x] working for hellotext.txt with zero shuffle :+1:
 - [x] implementing caeser key shuffle to prevent brute force break in
-- [x] Heisenbugs removed to the best of my knowledge in (ver2.0)[https://github.com/chttrjeankr/Shuffled-Shift-Cipher/tree/master/ver2.0]
+- [x] Heisenbugs removed to the best of my knowledge in [ver2.0](https://github.com/chttrjeankr/Shuffled-Shift-Cipher/tree/master/ver2.0)
