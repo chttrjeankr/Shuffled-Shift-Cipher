@@ -32,7 +32,9 @@ def make_key_list(passcode):
     """
 
     # key_list_options contain nearly all printable except few elements from string.whitespace
-    key_list_options = string.ascii_letters + string.digits + string.punctuation + " \t\n"
+    key_list_options = (
+        string.ascii_letters + string.digits + string.punctuation + " \t\n"
+    )
 
     key_list = []
 
@@ -108,7 +110,9 @@ def encoding(input_file_name, passcode, encoded_output_file_name):
 
     # writes the encoded file to the output file
     cwd = os.getcwd()
-    encoded_output_file_name = os.path.join(cwd, "test_text_files", encoded_output_file_name)
+    encoded_output_file_name = os.path.join(
+        cwd, "test_text_files", encoded_output_file_name
+    )
     fo = open(encoded_output_file_name, "w+")
     fo.write(encoded_message)
     print("Message encoded and stored in {}".format(encoded_output_file_name))
@@ -139,7 +143,9 @@ def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
     # reads and loads the ciphertext file and handles the error cases
     try:
         cwd = os.getcwd()
-        encoded_input_file_name = os.path.join(cwd, "test_text_files", encoded_input_file_name)
+        encoded_input_file_name = os.path.join(
+            cwd, "test_text_files", encoded_input_file_name
+        )
         fi = open(encoded_input_file_name, "r+")
         encoded_message = fi.read()
         fi.close()
@@ -161,7 +167,9 @@ def decoding(encoded_input_file_name, passcode, decoded_output_file_name):
 
     # writes the decoded file to the output file
     cwd = os.getcwd()
-    decoded_output_file_name = os.path.join(cwd, "test_text_files", decoded_output_file_name)
+    decoded_output_file_name = os.path.join(
+        cwd, "test_text_files", decoded_output_file_name
+    )
     fo = open(decoded_output_file_name, "w+")
     fo.write(decoded_message)
     print("Message decoded and stored in {}".format(decoded_output_file_name))
